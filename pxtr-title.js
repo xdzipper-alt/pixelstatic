@@ -1,6 +1,10 @@
 async function checkFileForTitle() {
   try {
-    const response = await fetch('content.pxtr');
+    const currentUrl = window.location.href;
+    const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+    const fileUrl = `${baseUrl}/content.pxtr`;
+
+    const response = await fetch(fileUrl);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
