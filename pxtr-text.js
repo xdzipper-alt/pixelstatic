@@ -1,17 +1,21 @@
 async function checkFileForText() {
   try {
-    const response = await fetch('content.pxtr');
+    const currentUrl = window.location.href;
+    const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+    const fileUrl = `${baseUrl}/content.pxtr`;
+
+    const response = await fetch(fileUrl);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const text = await response.text();
 
-    const match = text.match(/text = ([\w\s]+)/); 
+    const match = text.match(/text = ([\w\s]+)/);
 
     if (match && match[1]) {
       document.body.innerHTML += `<p>${match[1]}</p>`;
     } else {
-      document.body.innerHTML += '<p> </p>';
+      document.body.innerHTML += '<p></p>';
     }
 
   } catch (error) {
