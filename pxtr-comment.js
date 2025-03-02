@@ -11,7 +11,7 @@ async function checkFileForComments() {
     const text = await response.text();
 
     // Modified regex to match text = "..." or text = '...'
-    const match = text.match(/text\s*=\s*["'](.*?)["']/);
+    const match = text.match(/comment\s*=\s*["'](.*?)["']/);
 
     if (match && match[1]) {
       document.body.innerHTML += `<!-- ${match[1]} -->`;
