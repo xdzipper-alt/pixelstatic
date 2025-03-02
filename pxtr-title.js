@@ -10,7 +10,8 @@ async function checkFileForTitle() {
     }
     const text = await response.text();
 
-    const match = text.match(/title = ([\w\s]+)/);
+    // Modified regex to match title = "..." or title = '...'
+    const match = text.match(/title\s*=\s*["'](.*?)["']/);
 
     if (match && match[1]) {
       document.title = match[1];
