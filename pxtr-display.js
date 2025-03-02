@@ -5,7 +5,12 @@ function displayImageFromPxtr() {
       const displayLine = text.split('\n').find(line => line.startsWith('display = '));
 
       if (displayLine) {
-        const imageUrl = displayLine.substring('display = '.length);
+        // Modified to handle quoted URLs
+        let imageUrl = displayLine.substring('display = '.length).trim();
+        if ((imageUrl.startsWith('"') && imageUrl.endsWith('"')) || (imageUrl.startsWith("'") && imageUrl.endsWith("'"))) {
+          imageUrl = imageUrl.slice(1, -1); // Remove quotes
+        }
+
         const imageElement = document.createElement('img');
         imageElement.src = imageUrl;
         document.body.appendChild(imageElement);
