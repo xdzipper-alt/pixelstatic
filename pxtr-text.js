@@ -10,7 +10,8 @@ async function checkFileForText() {
     }
     const text = await response.text();
 
-    const match = text.match(/text = ([\w\s]+)/);
+    // Modified regex to match text = "..." or text = '...'
+    const match = text.match(/text\s*=\s*["'](.*?)["']/);
 
     if (match && match[1]) {
       document.body.innerHTML += `<p>${match[1]}</p>`;
