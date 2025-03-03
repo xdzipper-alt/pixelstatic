@@ -2,7 +2,7 @@ function displayImageFromPxtr() {
   fetch('content.pxtr')
     .then(response => response.text())
     .then(text => {
-      const displayLine = text.split('\n').find(line => line.startsWith('display = '));
+      const displayLine = text.split('\n').find(line => line.startsWith('image = '));
 
       if (displayLine) {
         // Modified to handle quoted URLs
