@@ -10,18 +10,23 @@ async function checkFileForBoldText() {
     }
     const text = await response.text();
 
-    // Modified regex to match text = "..." or text = '...'
-    const match = text.match(/b-text\s*=\s*["'](.*?)["']/);
+    const match = text.match(/text\s*=\s*["'](.*?)["']/);
 
     if (match && match[1]) {
-      document.body.innerHTML += `<p><strong>${match[1]}</strong></p>`;
+      let extractedText = match[1];
+      if (extractedText.includes(' bold ')) {
+        extractedText = extractedText.replace(' bold ', '');
+        document.body.innerHTML += `<p><b>${extractedText}</b></p>`;
+      } else {
+        document.body.innerHTML += `<p>${extractedText}</p>`;
+      }
     } else {
       document.body.innerHTML += '<p></p>';
     }
 
   } catch (error) {
     console.error('Error:', error);
-    document.body.innerHTML += '<p>An error occurred while trying to load the bold text. Try refreshing.</p>';
+    document.body.innerHTML += '<p>An error occurred while trying to load the text. Try refreshing.</p>';
   }
 }
 
